@@ -9,7 +9,7 @@ RUN set -x \
 
 WORKDIR /go/src/app
 COPY . .
-RUN CGO_ENABLED=0 go build -ldflags '-linkmode "external" -extldflags "-static"'
+RUN CGO_ENABLED=0 go build
 
 FROM scratch
 COPY --from=builder /go/src/app/ingress-default-backend /ingress-default-backend

@@ -75,3 +75,13 @@ defaultBackend:
     targetCPUUtilizationPercentage: 50
     targetMemoryUtilizationPercentage: 50
 ```
+
+## Updating dependencies
+
+```sh
+docker run -it --rm --mount type=bind,src=.,target=/project --entrypoint sh docker.io/golang:1.24.1-alpine -c "set -x && cd /project && go get -u && go mod tidy && set +x"
+
+git diff go.mod go.sum
+git add go.mod go.sum
+git commit -m "Bumping dependencies"
+```

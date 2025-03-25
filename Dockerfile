@@ -1,4 +1,4 @@
-FROM docker.io/golang:alpine as builder
+FROM docker.io/golang:1.24.1-alpine as builder
 RUN set -x \
   && addgroup -S golang \
   && adduser -S -u 10000 -g golang golang

@@ -11,8 +11,8 @@ Docker images can be obtained at [https://hub.docker.com/r/pjancik/ingress-defau
 Use the `-redirect_location` parameter to specify where to redirect all incoming http requests.
 
 ```sh
-docker build -t ingress-default-backed .
-docker run -it --rm -p 8080:8080 ingress-default-backed -redirect_location=https://telma.ai/
+docker build -t ingress-default-backend .
+docker run -it --rm -p 8080:8080 ingress-default-backend -redirect_location=https://telma.ai/
 ```
 
 Example:
@@ -74,12 +74,15 @@ defaultBackend:
     maxReplicas: 10
     targetCPUUtilizationPercentage: 50
     targetMemoryUtilizationPercentage: 50
+
+  serviceAccount:
+    automountServiceAccountToken: false
 ```
 
 ## Updating dependencies
 
 ```sh
-docker run -it --rm --mount type=bind,src=.,target=/project --entrypoint sh docker.io/golang:1.24.1-alpine -c "set -x && cd /project && go get -u && go mod tidy && set +x"
+docker run -it --rm --mount type=bind,src=.,target=/project --entrypoint sh docker.io/golang:1.24.5-alpine -c "set -x && cd /project && go get -u && go mod tidy && set +x"
 
 git diff go.mod go.sum
 git add go.mod go.sum
